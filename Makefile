@@ -6,8 +6,15 @@
 ##
 
 SRC	=		src/main.c \
+			lib/my_putchar.c \
+			lib/my_putstr.c \
+			lib/my_strlen.c \
+			lib/my_str_to_world_array.c \
+			src/minishel1.c \
 
 CFLAGS	=	-I ./include
+
+LDFLAGS =	-L./lib -lgnl
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -16,7 +23,7 @@ NAME	=	mysh
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) $(CFLAGS) -lncurses
+	gcc -o $(NAME) $(OBJ) $(LDFLAGS) -lncurses
 	@rm -rf $(OBJ)
 
 debug:	$(OBJ)
