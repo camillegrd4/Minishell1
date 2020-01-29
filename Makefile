@@ -6,12 +6,15 @@
 ##
 
 SRC	=		src/main.c \
+			src/cd_function.c \
+			src/minishel1.c \
+			src/init_struct.c \
 			lib/my_putchar.c \
 			lib/my_putstr.c \
 			lib/my_strlen.c \
 			lib/my_str_to_world_array.c \
-			src/minishel1.c \
 			lib/my_strcat.c \
+			lib/my_strncmp.c \
 
 CFLAGS	=	-I ./include -g
 
