@@ -11,8 +11,9 @@ SRC	=		src/main.c \
 			lib/my_strlen.c \
 			lib/my_str_to_world_array.c \
 			src/minishel1.c \
+			lib/my_strcat.c \
 
-CFLAGS	=	-I ./include
+CFLAGS	=	-I ./include -g
 
 LDFLAGS =	-L./lib -lgnl
 
