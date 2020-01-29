@@ -9,12 +9,15 @@ SRC	=		src/main.c \
 			src/cd_function.c \
 			src/minishel1.c \
 			src/init_struct.c \
+			src/exec_function.c \
 			lib/my_putchar.c \
 			lib/my_putstr.c \
 			lib/my_strlen.c \
 			lib/my_str_to_world_array.c \
 			lib/my_strcat.c \
 			lib/my_strncmp.c \
+			lib/my_strcmp.c \
+			lib/my_str_to_world_array_colon.c \
 
 CFLAGS	=	-I ./include -g
 
@@ -27,7 +30,7 @@ NAME	=	mysh
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) $(LDFLAGS) -lncurses
+	gcc -o $(NAME) $(OBJ) $(LDFLAGS)
 	@rm -rf $(OBJ)
 
 debug:	$(OBJ)

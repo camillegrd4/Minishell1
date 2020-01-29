@@ -12,6 +12,7 @@ typedef struct shell {
     char *cmd;
     char **array;
     char *path;
+    char **path_bis;
 }shell_t;
 
 #endif /* !STRUCT_H */
