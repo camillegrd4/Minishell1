@@ -26,7 +26,9 @@ int exec_function(char **envp, shell_t *shell)
     struct stat buf;
     int i = 0;
     if (my_strncmp(shell->array[0], "cd", 2) != 0
-    && my_strncmp(shell->array[0], "exit", 4)) {
+    && my_strncmp(shell->array[0], "exit", 4) != 0
+    && my_strncmp(shell->array[0], "setenv", 2) != 0
+    && my_strncmp(shell->array[0], "unsetenv", 2) != 0) {
         if (find_path(shell, envp) == 84)
             return 84;
         while (shell->path_bis[i] != NULL) {

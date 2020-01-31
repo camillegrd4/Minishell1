@@ -15,3 +15,8 @@ int cd_function(shell_t *shell)
         return 84;
     return 0;
 }
+
+int setenv_function(shell_t *shell)
+{
+    return 0;
+}
