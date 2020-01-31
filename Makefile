@@ -6,7 +6,7 @@
 ##
 
 SRC	=		src/main.c \
-			src/cd_function.c \
+			src/recode_function.c \
 			src/minishel1.c \
 			src/init_struct.c \
 			src/exec_function.c \

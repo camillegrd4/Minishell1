@@ -7,6 +7,22 @@
 
 #include "my.h"
 
+int call_function(shell_t *shell)
+{
+    if (!shell)
+        return 84;
+    if (my_strncmp(shell->array[0], "cd", 2) == 0) {
+        if (cd_function(shell) == 0)
+            return 0;
+        return 0;
+    }
+    if (my_strncmp(shell->array[0], "exit", 4) == 0) {
+        if (exit_function(shell) == 84)
+            return 84;
+    }
+    return 0;
+}
+
 int my_function(shell_t *shell, char **envp)
 {
     if (!envp || !shell)
@@ -14,11 +30,9 @@ int my_function(shell_t *shell, char **envp)
     shell->array = my_str_to_world_array_colon(shell->cmd);
     if (!shell->array)
         return 84;
-    if (my_strncmp(shell->array[0], "cd", 2) == 0) {
-        if (cd_function(shell) == 0)
-            return 0;
-    }
-    if (exec_function(envp, shell) == 84) {
+    if (call_function(shell) == 84)
+        return 84;
+    else if (exec_function(envp, shell) == 84) {
         return 84;
     }
     return 0;

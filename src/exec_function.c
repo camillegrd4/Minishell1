@@ -25,17 +25,19 @@ int exec_function(char **envp, shell_t *shell)
 {
     struct stat buf;
     int i = 0;
-
-    if (find_path(shell, envp) == 84)
-        return 84;
-    while (shell->path_bis[i] != NULL) {
-        shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->cmd);
-        if (access(shell->path_bis[i], 0) == 0) {
-            execve(shell->path_bis[i], shell->array, envp);
-            exit(0);
+    if (my_strncmp(shell->array[0], "cd", 2) != 0
+    && my_strncmp(shell->array[0], "exit", 4)) {
+        if (find_path(shell, envp) == 84)
+            return 84;
+        while (shell->path_bis[i] != NULL) {
+            shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->cmd);
+            if (access(shell->path_bis[i], 0) == 0) {
+                execve(shell->path_bis[i], shell->array, envp);
+                exit(0);
+            }
+            i++;
         }
-        i++;
+        my_putstr("command not found\n");
     }
-    my_putstr("command not found\n");
     return 0;
 }
