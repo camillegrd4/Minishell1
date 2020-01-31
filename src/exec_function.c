@@ -30,7 +30,7 @@ int exec_function(char **envp, shell_t *shell)
         if (find_path(shell, envp) == 84)
             return 84;
         while (shell->path_bis[i] != NULL) {
-            shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->cmd);
+            shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->array[0]);
             if (access(shell->path_bis[i], 0) == 0) {
                 execve(shell->path_bis[i], shell->array, envp);
                 exit(0);
