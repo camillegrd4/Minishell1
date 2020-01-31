@@ -7,13 +7,6 @@
 
 #include "my.h"
 
-int exit_function(shell_t *shell)
-{
-    if (my_putstr("exit") == 84)
-        return 84;
-    exit(0);
-}
-
 int cd_function(shell_t *shell)
 {
     if (!shell->array[0])

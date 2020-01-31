@@ -28,7 +28,7 @@ int cd_function(shell_t *shell);
 int exec_function(char **envp, shell_t *shell);
 int find_path(shell_t *shell, char **envp);
 shell_t *init_struct_minishell(void);
-int call_function(shell_t *shell);
+int call_function_recode(shell_t *shell);
 int exit_function(shell_t *shell);
 
 /*lib*/

@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int call_function(shell_t *shell)
+int call_function_recode(shell_t *shell)
 {
     if (!shell)
         return 84;
@@ -16,31 +16,30 @@ int call_function(shell_t *shell)
             return 0;
         return 0;
     }
-    if (my_strncmp(shell->array[0], "exit", 4) == 0) {
-        if (exit_function(shell) == 84)
-            return 84;
-    }
     return 0;
 }
 
 int my_function(shell_t *shell, char **envp)
 {
+    pid_t pid;
+
     if (!envp || !shell)
         return 84;
-    shell->array = my_str_to_world_array_colon(shell->cmd);
-    if (!shell->array)
-        return 84;
-    if (call_function(shell) == 84)
-        return 84;
-    else if (exec_function(envp, shell) == 84) {
-        return 84;
-    }
+    pid = fork();
+    if (pid == -1)
+        exit(0);
+    else if (pid == 0) {
+        if (call_function_recode(shell) == 84)
+            return 84;
+        else if (exec_function(envp, shell) == 84)
+            return 84;
+    } else
+        pid = waitpid(-1, NULL, 0);
     return 0;
 }
 
 char minishel(char **argv, char **envp)
 {
-    pid_t pid;
     shell_t *shell = init_struct_minishell();
 
     if (!argv || !envp)
@@ -48,16 +47,15 @@ char minishel(char **argv, char **envp)
     while (1) {
         my_putstr("$ > ");
         shell->cmd = get_next_line(0);
-        if (!shell->cmd)
+        shell->array = my_str_to_world_array_colon(shell->cmd);
+        if (!shell->cmd || !shell->array)
             return 84;
-        pid = fork();
-        if (pid == -1)
+        if (my_strncmp(shell->array[0], "exit", 4) == 0) {
+            my_putstr("exit\n");
             exit(0);
-        else if (pid == 0) {
-            if (my_function(shell, envp) == 84)
-                return 84;
-        } else
-            pid = waitpid(-1, NULL, 0);
+        }
+        if (my_function(shell, envp) == 84)
+            return 84;
     }
     return 0;
 }
