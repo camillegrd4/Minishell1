@@ -20,3 +20,8 @@ int setenv_function(shell_t *shell)
 {
     return 0;
 }
+
+int unsetenv_function(shell_t *shell)
+{
+    return 0;
+}

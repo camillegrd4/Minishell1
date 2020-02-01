@@ -31,6 +31,7 @@ shell_t *init_struct_minishell(void);
 int call_function_recode(shell_t *shell);
 int exit_function(shell_t *shell);
 int setenv_function(shell_t *shell);
+int unsetenv_function(shell_t *shell);
 
 /*lib*/
 int my_putchar(char c);
