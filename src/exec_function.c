@@ -39,7 +39,8 @@ int exec_function(char **envp, shell_t *shell)
             }
             i++;
         }
-        my_putstr("command not found\n");
+        my_putstr(shell->cmd);
+        my_putstr(": Command not found.\n");
     }
     return 0;
 }

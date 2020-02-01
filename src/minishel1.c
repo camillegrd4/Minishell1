@@ -54,9 +54,11 @@ char minishel(char **argv, char **envp)
     while (1) {
         my_putstr("$ > ");
         shell->cmd = get_next_line(0);
+        if (!shell->cmd) {
+            my_putstr("exit\n");
+            exit(0);
+        }
         shell->array = my_str_to_world_array_colon(shell->cmd);
-        if (!shell->cmd || !shell->array)
-            return 84;
         if (my_strncmp(shell->array[0], "exit", 4) == 0) {
             if (my_putstr("exit\n") == 84)
                 return 84;
