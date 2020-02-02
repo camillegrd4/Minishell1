@@ -33,6 +33,7 @@ int exit_function(shell_t *shell);
 int setenv_function(shell_t *shell);
 int unsetenv_function(shell_t *shell);
 int execve_function(char **envp, shell_t *shell);
+void redirect_all_stdout(void);
 
 /*lib*/
 int my_putchar(char c);

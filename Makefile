@@ -41,3 +41,9 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+
+tests_run:
+	make -C tests/
+	./tests/unit_tests
+
+.PHONY:	fclean clean all re tests_run
