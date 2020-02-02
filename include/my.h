@@ -32,6 +32,7 @@ int call_function_recode(shell_t *shell);
 int exit_function(shell_t *shell);
 int setenv_function(shell_t *shell);
 int unsetenv_function(shell_t *shell);
+int execve_function(char **envp, shell_t *shell);
 
 /*lib*/
 int my_putchar(char c);

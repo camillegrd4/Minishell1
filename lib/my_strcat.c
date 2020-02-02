@@ -11,11 +11,12 @@ char *my_strcat(char *dest, char const *src)
 {
     int i = 0;
     int count = 0;
-    char *res;
-    res = malloc(sizeof(*res) * (my_strlen(dest) + my_strlen(src) + 4));
+    char *res = malloc(sizeof(*res) * (my_strlen(dest) + my_strlen(src) + 4));
 
-    if (!res)
+    if (!res || !dest || !src) {
+        free(res);
         return NULL;
+    }
     while (dest[i]) {
         res[i] = dest[i];
         i++;

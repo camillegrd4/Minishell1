@@ -48,22 +48,20 @@ int my_function(shell_t *shell, char **envp)
 char minishel(char **argv, char **envp)
 {
     shell_t *shell = init_struct_minishell();
-
-    if (!argv || !envp)
+    if (!argv || !envp || !shell) {
+        free(shell);
         return 84;
+    }
     while (1) {
-        my_putstr("$ > ");
+        if (my_putstr("$ > ") == 84)
+            return 84;
         shell->cmd = get_next_line(0);
         if (!shell->cmd) {
-            my_putstr("exit\n");
-            exit(0);
-        }
-        shell->array = my_str_to_world_array_colon(shell->cmd);
-        if (my_strncmp(shell->array[0], "exit", 4) == 0) {
             if (my_putstr("exit\n") == 84)
                 return 84;
             exit(0);
         }
+        shell->array = my_str_to_world_array_colon(shell->cmd);
         if (my_function(shell, envp) == 84)
             return 84;
     }

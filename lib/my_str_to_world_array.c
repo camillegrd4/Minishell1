@@ -12,6 +12,8 @@ int number_char(char *str)
     int i = 0;
     int number_char = 0;
 
+    if (!str)
+        return 84;
     while (str[i] != '\0') {
         if ( str[i] == ' ')
             number_char += 1;
@@ -24,6 +26,8 @@ int lines(char *str)
 {
     int i = 0;
 
+    if (!str)
+        return 84;
     while (str[i] != '\0' && str[i] != ' ') {
         i += 1;
     }

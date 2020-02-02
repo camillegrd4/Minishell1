@@ -10,7 +10,7 @@
 shell_t *init_struct_minishell(void)
 {
     shell_t * shell = malloc(sizeof(shell_t));
-    if (shell == NULL)
+    if (!shell)
         return NULL;
     shell->array = NULL;
     shell->cmd = NULL;

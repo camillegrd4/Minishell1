@@ -12,6 +12,8 @@ int number_char_colon(char *str)
     int i = 0;
     int number_char = 0;
 
+    if (!str)
+        return 84;
     while (str[i] != '\0') {
         if (str[i] == ':' || str[i] == ' ')
             number_char += 1;
@@ -24,6 +26,8 @@ int lines_colon(char *str)
 {
     int i = 0;
 
+    if (!str)
+        return 84;
     while (str[i] != '\0') {
         i += 1;
     }
@@ -48,7 +52,8 @@ char **my_str_to_world_array_colon(char *str)
         array[a][j] = '\0';
         j = 0;
         a += 1;
-        --number;}
+        --number;
+        }
     array[a] = NULL;
     return array;
 }

@@ -16,10 +16,9 @@ SRC	=		src/main.c \
 			lib/my_str_to_world_array.c \
 			lib/my_strcat.c \
 			lib/my_strncmp.c \
-			lib/my_strcmp.c \
 			lib/my_str_to_world_array_colon.c \
 
-CFLAGS	=	-I ./include -g
+CFLAGS	=	-I ./include
 
 LDFLAGS =	-L./lib -lgnl
 
@@ -31,10 +30,9 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) $(LDFLAGS)
-	@rm -rf $(OBJ)
 
 debug:	$(OBJ)
-	gcc -o debug $(OBJ) $(CFLAGS) -g
+	gcc -o debug $(OBJ) $(CFLAGS)
 
 re:	fclean all
 
