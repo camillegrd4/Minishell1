@@ -15,7 +15,7 @@ int number_char(char *str)
     if (!str)
         return 84;
     while (str[i] != '\0') {
-        if ( str[i] == ' ')
+        if (str[i] == ' ')
             number_char += 1;
         i += 1;
     }

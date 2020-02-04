@@ -9,7 +9,7 @@
 
 int cd_function(shell_t *shell)
 {
-    if (!shell->array[0])
+    if (!shell || !shell->array[0])
         return 84;
     if (chdir(shell->array[1]) == -1)
         return 84;
@@ -18,10 +18,14 @@ int cd_function(shell_t *shell)
 
 int setenv_function(shell_t *shell)
 {
+    if (!shell)
+        return 84;
     return 0;
 }
 
 int unsetenv_function(shell_t *shell)
 {
+    if (!shell)
+        return 84;
     return 0;
 }
