@@ -7,7 +7,7 @@
 
 SRC	=		src/main.c \
 			src/recode_function.c \
-			src/minishel1.c \
+			src/minishell.c \
 			src/init_struct.c \
 			src/exec_function.c \
 			lib/my_putchar.c \
