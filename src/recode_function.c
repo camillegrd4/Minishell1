@@ -19,7 +19,6 @@ int cd_function(shell_t *shell)
 {
     if (!shell || !shell->array[0])
         return 84;
-    printf("%s\n", shell->array[1]);
     if (chdir(shell->array[1]) == -1)
         return 84;
     return 0;
