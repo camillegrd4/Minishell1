@@ -43,7 +43,8 @@ char **my_str_to_world_array_colon(char *str)
     int j = 0;
     while (number > 0 && i <= my_strlen(str)) {
         array[a] = malloc(sizeof(char) * (lines_colon(&str[i]) + 1));
-        while (str[i] != '\0' && str[i] != ':' && str[i] != ' ') {
+        while (str[i] != '\0' && str[i] != ':' && str[i] != ' '
+            && str[i] != '\n') {
             array[a][j] = str[i];
             j += 1;
             i += 1;
