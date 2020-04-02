@@ -20,7 +20,7 @@ SRC	=		src/main.c \
 
 CFLAGS	=	-I ./include
 
-LDFLAGS =	-L./lib -lgnl
+LDFLAGS =	-L./lib
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -23,7 +23,7 @@ char *my_strcat(char *dest, char const *src)
     }
     res[i] = '/';
     i++;
-    while (src[count]) {
+    while (src[count] && src[count] != '\n') {
         res[i + count] = src[count];
         count++;
     }

@@ -7,6 +7,14 @@
 
 #include "my.h"
 
+int exit_function(shell_t *shell)
+{
+    if (!shell)
+        return 84;
+    exit(0);
+    return 0;
+}
+
 int cd_function(shell_t *shell)
 {
     if (!shell || !shell->array[0])

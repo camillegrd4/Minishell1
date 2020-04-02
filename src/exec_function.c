@@ -23,6 +23,15 @@ int find_path(shell_t *shell, char **envp)
     return 84;
 }
 
+int command_not_found(char **envp, shell_t *shell)
+{
+    if (!shell || !envp)
+        return 84;
+    my_putstr(shell->cmd);
+    my_putstr(": Command not found.\n");
+    exit(0);
+}
+
 int execve_function(char **envp, shell_t *shell)
 {
     int i = 0;
@@ -33,21 +42,21 @@ int execve_function(char **envp, shell_t *shell)
         return 84;
     while (shell->path_bis[i] != NULL) {
         shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->array[0]);
-        if (access(shell->path_bis[i], 0) == 0) {
-            execve(shell->path_bis[i], shell->array, envp);
+        if (access(shell->path_bis[i], F_OK) == 0) {
+            if (execve(shell->path_bis[i], shell->array, envp) == -1)
+                exit(0);
             exit(0);
+            }
+            i++;
         }
-        i++;
-    }
-    if (my_putstr(shell->cmd) == 84
-    || my_putstr(": Command not found.\n") == 84)
-        return 84;
+    command_not_found(envp, shell);
     return 0;
 }
 
 int exec_function(char **envp, shell_t *shell)
 {
     struct stat buf;
+    pid_t pid;
 
     if (!envp || !shell)
         return 84;
@@ -55,8 +64,15 @@ int exec_function(char **envp, shell_t *shell)
     && my_strncmp(shell->array[0], "exit", 4) != 0
     && my_strncmp(shell->array[0], "setenv", 2) != 0
     && my_strncmp(shell->array[0], "unsetenv", 2) != 0) {
-        if (execve_function(envp, shell) == 84)
+        pid = fork();
+        if (pid == -1)
             return 84;
+        if (pid == 0) {
+            if (execve_function(envp, shell) == 84)
+                return 84;
+        } else {
+            pid = waitpid(-1, NULL, 0);
+        }
     }
     return 0;
 }

@@ -18,7 +18,6 @@
 #include <fcntl.h>
 #include "stdbool.h"
 #include "stdlib.h"
-#include "gnl.h"
 #include "struct.h"
 
 /*src*/
