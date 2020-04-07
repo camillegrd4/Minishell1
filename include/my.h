@@ -27,12 +27,14 @@ int cd_function(shell_t *shell);
 int exec_function(char **envp, shell_t *shell);
 int find_path(shell_t *shell, char **envp);
 shell_t *init_struct_minishell(void);
-int call_function_recode(shell_t *shell);
 int exit_function(shell_t *shell);
-int setenv_function(shell_t *shell);
 int unsetenv_function(shell_t *shell);
 int execve_function(char **envp, shell_t *shell);
 void redirect_all_stdout(void);
+int call_function_recode(char **envp, shell_t *shell);
+int setenv_function(char **envp, shell_t *shell);
+char **create_list_env(char **envp, shell_t *shell);
+int print_env(char **str, shell_t *shell);
 
 /*lib*/
 int my_putchar(char c);

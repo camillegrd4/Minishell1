@@ -15,4 +15,11 @@ typedef struct shell {
     char **path_bis;
 }shell_t;
 
+typedef struct env {
+    char *name;
+    char *params;
+    char *str;
+    struct tetris *next;
+}env_t;
+
 #endif /* !STRUCT_H */

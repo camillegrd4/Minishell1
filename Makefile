@@ -17,8 +17,9 @@ SRC	=		src/main.c \
 			lib/my_strcat.c \
 			lib/my_strncmp.c \
 			lib/my_str_to_world_array_colon.c \
+			src/env_function.c \
 
-CFLAGS	=	-I ./include
+CFLAGS	=	-I ./include -g
 
 LDFLAGS =	-L./lib
 

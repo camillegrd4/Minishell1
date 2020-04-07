@@ -24,10 +24,14 @@ int cd_function(shell_t *shell)
     return 0;
 }
 
-int setenv_function(shell_t *shell)
+int setenv_function(char **envp, shell_t *shell)
 {
+    int i = 0;
+    char **str = NULL;
     if (!shell)
         return 84;
+    str = create_list_env(envp, shell);
+    print_env(str, shell);
     return 0;
 }
 
