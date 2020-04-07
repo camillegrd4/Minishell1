@@ -52,5 +52,6 @@ int lines(char *str);
 int number_char_colon(char *str);
 int lines_colon(char *str);
 int cd_function(shell_t *shell);
+int my_strncmp_next(char const *s1, char const *s2, int n);
 
 #endif /* !MY_H */

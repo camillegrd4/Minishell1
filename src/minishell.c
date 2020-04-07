@@ -7,6 +7,21 @@
 
 #include "my.h"
 
+int call_function_recode_next(char **envp, shell_t *shell)
+{
+    if (!shell || !envp)
+        return 84;
+    if (my_strncmp(shell->array[0], "setenv", 6) == 0) {
+        if (setenv_function(envp, shell) == 0)
+            return 0;
+    }
+    if (my_strncmp(shell->array[0], "unsetenv", 8) == 0) {
+        if (unsetenv_function(shell) == 0)
+            return 0;
+    }
+    return 0;
+}
+
 int call_function_recode(char **envp, shell_t *shell)
 {
     if (!shell || !envp)
@@ -19,14 +34,8 @@ int call_function_recode(char **envp, shell_t *shell)
         if (exit_function(shell) == 0)
             return 0;
     }
-    if (my_strncmp(shell->array[0], "setenv", 6) == 0) {
-        if (setenv_function(envp, shell) == 0)
-            return 0;
-    }
-    if (my_strncmp(shell->array[0], "unsetenv", 8) == 0) {
-        if (unsetenv_function(shell) == 0)
-            return 0;
-    }
+    if (call_function_recode_next(envp, shell) == 84)
+            return 84;
     return 0;
 }
 
@@ -34,10 +43,12 @@ int my_function(shell_t *shell, char **envp)
 {
     if (!envp || !shell)
         return 84;
-    if (call_function_recode(envp, shell) == 84)
+    if (call_function_recode(envp, shell) == 84) {
         return 84;
-    else if (exec_function(envp, shell) == 84)
+    }
+    else if (exec_function(envp, shell) == 84) {
         return 84;
+    }
     return 0;
 }
 
@@ -50,18 +61,20 @@ int principal_function(char **envp, shell_t *shell)
     while (1) {
         my_putstr("$ > ");
         if (x = getline(&line, &n, stdin) == -1) {
-            free(shell);
             exit(0);
         }
-        if (x != -1)
+        if (x != -1) {
             shell->cmd = line;
-        shell->array = my_str_to_world_array_colon(shell->cmd);
+            shell->array = my_str_to_world_array_colon(shell->cmd);
+        }
+        printf("%s\n", shell->array[0]);
         if (!shell->cmd) {
             my_putstr("exit\n");
             exit(0);
+        } else {
+            if (my_function(shell, envp) == 84)
+                return 84;
         }
-        else
-            my_function(shell, envp);
     }
     return 0;
 }
@@ -70,14 +83,9 @@ char minishel(char **argv, char **envp)
 {
     shell_t *shell = init_struct_minishell();
 
-    if (!argv || !envp || !shell) {
-        free(shell);
+    if (!argv || !envp || !shell)
         return 84;
-    }
-    if (principal_function(envp, shell) == 84) {
-        free(envp);
-        free(shell);
+    if (principal_function(envp, shell) == 84)
         return 84;
-    }
     return 0;
 }
