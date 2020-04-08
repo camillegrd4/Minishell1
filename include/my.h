@@ -36,6 +36,9 @@ int call_function_recode(char **envp, shell_t *shell);
 int setenv_function(char **envp, shell_t *shell);
 char **create_list_env(char **envp, shell_t *shell);
 int print_env(char **str, shell_t *shell);
+int change_env(char **envp, shell_t *shell);
+int find_line(shell_t *shell, int i, int j, int y);
+char *change_line(shell_t *shell, int i, int y);
 
 /*lib*/
 int my_putchar(char c);

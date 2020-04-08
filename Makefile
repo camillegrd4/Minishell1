@@ -19,6 +19,7 @@ SRC	=		src/main.c \
 			lib/my_str_to_world_array_colon.c \
 			src/env_function.c \
 			lib/my_strncmp_next.c \
+			lib/my_strdup.c \
 
 CFLAGS	=	-I ./include -g
 

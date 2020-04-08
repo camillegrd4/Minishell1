@@ -13,6 +13,9 @@ typedef struct shell {
     char **array;
     char *path;
     char **path_bis;
+    char **save_env;
+    char *name;
+    char *remove;
 }shell_t;
 
 typedef struct env {

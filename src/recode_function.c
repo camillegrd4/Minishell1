@@ -27,12 +27,11 @@ int cd_function(shell_t *shell)
 int setenv_function(char **envp, shell_t *shell)
 {
     int i = 0;
-    char **str = NULL;
 
     if (!shell)
         return 84;
-    str = create_list_env(envp, shell);
-    print_env(str, shell);
+    if (shell->array[1])
+        change_env(envp, shell);
     return 0;
 }
 

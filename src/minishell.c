@@ -19,6 +19,10 @@ int call_function_recode_next(char **envp, shell_t *shell)
         if (unsetenv_function(shell) == 0)
             return 0;
     }
+    if (my_strncmp(shell->array[0], "env", 3) == 0) {
+        print_env(shell->save_env, shell);
+        return 1;
+    }
     return 0;
 }
 
@@ -34,8 +38,8 @@ int call_function_recode(char **envp, shell_t *shell)
         if (exit_function(shell) == 0)
             return 0;
     }
-    if (call_function_recode_next(envp, shell) == 84)
-            return 84;
+    if (call_function_recode_next(envp, shell) == 1)
+        return 1;
     return 0;
 }
 
@@ -43,8 +47,8 @@ int my_function(shell_t *shell, char **envp)
 {
     if (!envp || !shell)
         return 84;
-    if (call_function_recode(envp, shell) == 84) {
-        return 84;
+    if (call_function_recode(envp, shell) == 1) {
+        return 1;
     }
     else if (exec_function(envp, shell) == 84) {
         return 84;
@@ -67,7 +71,6 @@ int principal_function(char **envp, shell_t *shell)
             shell->cmd = line;
             shell->array = my_str_to_world_array_colon(shell->cmd);
         }
-        printf("%s\n", shell->array[0]);
         if (!shell->cmd) {
             my_putstr("exit\n");
             exit(0);
@@ -85,6 +88,7 @@ char minishel(char **argv, char **envp)
 
     if (!argv || !envp || !shell)
         return 84;
+    shell->save_env = create_list_env(envp, shell);
     if (principal_function(envp, shell) == 84)
         return 84;
     return 0;
