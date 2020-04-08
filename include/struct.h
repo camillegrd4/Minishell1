@@ -16,6 +16,11 @@ typedef struct shell {
     char **save_env;
     char *name;
     char *remove;
+    char **new_env;
+    int line;
+    char *unset;
+    int pos;
+    int find_line;
 }shell_t;
 
 typedef struct env {

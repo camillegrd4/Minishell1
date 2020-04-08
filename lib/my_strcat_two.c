@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2020
-** cat
+** my
 ** File description:
-** cat
+** my
 */
 
 #include "my.h"
 
-char *my_strcat(char *dest, char const *src)
+char *my_strcat_two(char *dest, char const *src)
 {
     int i = 0;
     int count = 0;
@@ -21,7 +21,7 @@ char *my_strcat(char *dest, char const *src)
         res[i] = dest[i];
         i++;
     }
-    res[i] = '=';
+    res[i] = '/';
     i++;
     while (src[count] && src[count] != '\n') {
         res[i + count] = src[count];

@@ -20,6 +20,10 @@ SRC	=		src/main.c \
 			src/env_function.c \
 			lib/my_strncmp_next.c \
 			lib/my_strdup.c \
+			src/change_env.c \
+			src/change_line.c \
+			lib/my_strcat_two.c \
+			src/unsetenv_function.c \
 
 CFLAGS	=	-I ./include -g
 
@@ -46,7 +50,11 @@ fclean: clean
 	rm -f $(NAME)
 
 tests_run:
-	make -C tests/
+	make -C tests
 	./tests/unit_tests
+
+test:
+	make -C tests_shell/tests
+	./test_shell/tests/my_tests_sh
 
 .PHONY:	fclean clean all re tests_run

@@ -19,51 +19,6 @@ int find_line(shell_t *shell, int i, int j, int y)
     return 0;
 }
 
-char *change_line(shell_t *shell, int i, int y)
-{
-    int j = 0;
-    int x = 0;
-    char *new = NULL;
-
-    shell->remove = my_strdup(shell->array[2]);
-    new = malloc(sizeof(char ) * (my_strlen(shell->remove)
-        + my_strlen(shell->array[1])) + 2);
-    while (shell->save_env[y][i] != '=') {
-        new[x] = shell->save_env[y][i];
-        i++;
-        x++;
-    }
-    new[x] = '=';
-    x++;
-    while (shell->remove[j] != '\0') {
-        new[x] = shell->remove[j];
-        x++;
-        j++;
-    }
-    return new;
-}
-
-int change_env(char **envp, shell_t *shell)
-{
-    int i = 0;
-    int j = 0;
-    int y = 0;
-
-    shell->name = my_strdup(shell->array[1]);
-    while (shell->save_env[y] != NULL) {
-        if (shell->save_env[y][i] == shell->name[j]) {
-            if (find_line(shell, i, j, y) == 1)
-                y++;
-            else {
-                shell->save_env[y] = change_line(shell, i, y);
-                break;
-            }
-        } else
-            y++;
-    }
-    return 0;
-}
-
 int count_line(char **envp)
 {
     int i = 0;

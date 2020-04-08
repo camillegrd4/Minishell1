@@ -9,7 +9,7 @@
 
 int call_function_recode_next(char **envp, shell_t *shell)
 {
-    if (!shell || !envp)
+    if (!shell)
         return 84;
     if (my_strncmp(shell->array[0], "setenv", 6) == 0) {
         if (setenv_function(envp, shell) == 0)
@@ -28,7 +28,7 @@ int call_function_recode_next(char **envp, shell_t *shell)
 
 int call_function_recode(char **envp, shell_t *shell)
 {
-    if (!shell || !envp)
+    if (!shell)
         return 84;
     if (my_strncmp(shell->array[0], "cd", 2) == 0) {
         if (cd_function(shell) == 0)

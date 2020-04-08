@@ -13,9 +13,9 @@ int find_path(shell_t *shell, char **envp)
 
     if (!shell || !envp)
         return 84;
-    while (envp[i]) {
-        if (my_strncmp_next(envp[i], "PATH", 4) == 0) {
-            shell->path_bis = my_str_to_world_array_colon(&envp[i][5]);
+    while (shell->save_env[i]) {
+        if (my_strncmp_next(shell->save_env[i], "PATH", 4) == 0) {
+            shell->path_bis = my_str_to_world_array_colon(&shell->save_env[i][5]);
             return 0;
         }
         i++;
@@ -27,8 +27,9 @@ int command_not_found(char **envp, shell_t *shell)
 {
     if (!shell || !envp)
         return 84;
-    my_putstr(shell->cmd);
-    my_putstr(": Command not found.\n");
+    my_putstr_without_return(shell->cmd);
+    my_putstr(": Command not found.");
+    my_putchar('\n');
     exit(0);
 }
 
@@ -39,9 +40,9 @@ int execve_function(char **envp, shell_t *shell)
     if (!envp || !shell)
         return 84;
     if (find_path(shell, envp) == 84)
-        return 84;
+        command_not_found(envp, shell);
     while (shell->path_bis[i] != NULL) {
-        shell->path_bis[i] = my_strcat(shell->path_bis[i], shell->array[0]);
+        shell->path_bis[i] = my_strcat_two(shell->path_bis[i], shell->array[0]);
         if (access(shell->path_bis[i], F_OK) == 0) {
             if (execve(shell->path_bis[i], shell->array, envp) == -1)
                 exit(0);

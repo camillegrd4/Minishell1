@@ -39,5 +39,6 @@ int unsetenv_function(shell_t *shell)
 {
     if (!shell)
         return 84;
+    my_unsetenv(shell);
     return 0;
 }
