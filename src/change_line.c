@@ -34,6 +34,9 @@ int change_env(char **envp, shell_t *shell)
     int line = 0;
     char **str = NULL;
 
+    if (!shell->array[2]) {
+        shell->array[2] = " ";
+    }
     shell->line = 0;
     change_env_next(shell, line);
     if (shell->line == 0) {

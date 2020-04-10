@@ -46,6 +46,7 @@ char *change_line(shell_t *shell, int i, int y);
 int change_env_next(shell_t *shell, int line);
 int my_unsetenv(shell_t *shell);
 char **remove_line(shell_t *shell, int i, int y);
+int access_function(int i, char **envp, char *path, shell_t *shell);
 
 /*lib*/
 int my_putchar(char c);
@@ -66,5 +67,6 @@ int my_strncmp_next(char const *s1, char const *s2, int n);
 char *my_strcat_two(char *dest, char const *src);
 int my_putstr_without_return(char const *str);
 int my_strlen_env(char *str);
+int my_strlen_egale(char const *str);
 
 #endif /* !MY_H */

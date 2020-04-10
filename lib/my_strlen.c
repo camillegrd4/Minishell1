@@ -19,6 +19,18 @@ int my_strlen(char const *str)
     return i;
 }
 
+int my_strlen_egale(char const *str)
+{
+    int i = 0;
+
+    if (!str)
+        return 84;
+    while (str[i] != '=') {
+        i++;
+    }
+    return i;
+}
+
 int my_strlen_env(char *str)
 {
     int i = 0;
