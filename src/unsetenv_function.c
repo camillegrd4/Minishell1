@@ -64,7 +64,5 @@ int my_unsetenv(shell_t *shell)
         } else
             y++;
     }
-    my_putstr(shell->array[0]);
-    my_putstr(": Command not found.\n");
-    return 1;
+    return 0;
 }
