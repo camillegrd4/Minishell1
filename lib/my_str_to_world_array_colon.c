@@ -15,7 +15,8 @@ int number_char_colon(char *str)
     if (!str)
         return 84;
     while (str[i] != '\0') {
-        if (str[i] == ':' || str[i] == ' ')
+        if ((str[i] == ':' || str[i] == ' ' || str[i] == '\t')
+        && (str[i + 1] != ':' && str[i + 1] != ' ' && str[i + 1] != '\t'))
             number_char += 1;
         i += 1;
     }
@@ -34,27 +35,36 @@ int lines_colon(char *str)
     return i;
 }
 
-char **my_str_to_world_array_colon(char *str)
+char **add_letter_colon(char **array, int number, char *str)
 {
-    int number = number_char_colon(str) + 1;
-    char **array = malloc(sizeof(char *) * (number + 1));
-    int a = 0;
     int i = 0;
     int j = 0;
+    int a = 0;
+
     while (number > 0 && i <= my_strlen(str)) {
         array[a] = malloc(sizeof(char) * (lines_colon(&str[i]) + 1));
-        while (str[i] != '\0' && str[i] != ':' && str[i] != ' '
-            && str[i] != '\n') {
+        while (str[i] != '\0' && str[i] != ':' && str[i] != '\t' && 
+        str[i] != ' ' && str[i] != '\n') {
             array[a][j] = str[i];
             j += 1;
             i += 1;
         }
-        i += 1;
+        while (str[i] == ' ' || str[i] == '\t' || str[i] == ':')
+            i++;
         array[a][j] = '\0';
         j = 0;
         a += 1;
         --number;
-        }
+    }
     array[a] = NULL;
+    return array;
+}
+
+char **my_str_to_world_array_colon(char *str)
+{
+    int number = number_char_colon(str) + 1;
+    char **array = malloc(sizeof(char *) * (number + 1));
+
+    array = add_letter_colon(array, number, str);
     return array;
 }

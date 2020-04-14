@@ -26,13 +26,10 @@ int exec_binary(shell_t *shell, char **envp)
     }
     return 0;
 }
-
 int exec_function_system(shell_t *shell, char **envp, int i)
 {
-    shell->path_bis[i] 
-        = my_strcat_two(shell->path_bis[i], shell->array[0]);
+    shell->path_bis[i] = my_strcat_two(shell->path_bis[i], shell->array[0]);
     if (access(shell->path_bis[i], F_OK) == 0)
-        if (access_function(i, envp, shell->path_bis[i], shell) == 1)
-            return 1;
+        access_function(i, envp, shell->path_bis[i], shell);
     return 0;
 }

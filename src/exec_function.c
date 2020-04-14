@@ -15,8 +15,7 @@ int find_path(shell_t *shell, char **envp)
         return 84;
     while (envp[i]) {
         if (my_strncmp_next(envp[i], "PATH", 4) == 0) {
-            shell->path_bis
-                = my_str_to_world_array_colon(&envp[i][5]);
+            shell->path_bis = my_str_to_world_array_colon(&envp[i][5]);
             return 0;
         }
         i++;
@@ -63,13 +62,12 @@ int execve_function(char **envp, shell_t *shell)
 
     if (!envp || !shell)
         return 84;
+    exec_binary(shell, envp);
     if (find_path(shell, envp) == 84)
         command_not_found(envp, shell);
-    exec_binary(shell, envp);
     while (shell->path_bis[i] != NULL) {
         if (access(shell->array[0], F_OK) == 0) {
-            if (access_function(i, envp, shell->array[0], shell) == 1)
-                return 1;
+            access_function(i, envp, shell->array[0], shell);
         }
         else {
             if (exec_function_system(shell, envp, i) == 84)
@@ -78,6 +76,11 @@ int execve_function(char **envp, shell_t *shell)
         i++;
     }
     command_not_found(envp, shell);
+    return 0;
+}
+
+int exec_function_next(char **envp, shell_t *shell, pid_t pid)
+{
     return 0;
 }
 

@@ -50,8 +50,8 @@ int my_function(shell_t *shell, char **envp)
     if (call_function_recode(envp, shell) == 1) {
         return 1;
     }
-    else if (exec_function(envp, shell) == 1) {
-        return 1;
+    else if (exec_function(envp, shell) == 84) {
+        return 84;
     }
     return 0;
 }
