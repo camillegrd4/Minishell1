@@ -59,34 +59,6 @@ char **add_letter_colon(char **array, int number, char *str, int i)
     return array;
 }
 
-char **check_space(char **array, int number)
-{
-    int j = 0;
-    int a = 0;
-    int i = 0;
-    int x = 0;
-    char **form = malloc(sizeof(char *) * (number + 1));
-
-    while (array[i]) {
-        i = 0;
-        x = 0;
-        form[i] = malloc(sizeof(char) * (my_strlen(array[i])) + 1);
-        while (array[i][j]) {
-            if (array[a][x] == ' ' && (array[a][x + 1] == ' ' || array[a][x + 1] == '\0'))
-                x++;
-            else
-                form[i][j] = array[a][x];
-                j += 1;
-                x += 1;
-            form[a][x] = '\0';
-            x++;
-            a += 1;
-        }
-    }
-    form[a] = NULL;
-    return form;
-}
-
 char **my_str_to_world_array_colon(char *str)
 {
     int number = 0;
@@ -103,9 +75,5 @@ char **my_str_to_world_array_colon(char *str)
     stock = number;
     array = malloc(sizeof(char *) * (number + 1));
     array = add_letter_colon(array, number, str, i);
-    /*while (array[i] != NULL) {
-        array[i] = check_space(array, stock);
-        i++;
-    }*/
     return array;
 }
