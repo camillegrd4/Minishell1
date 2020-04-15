@@ -11,7 +11,7 @@ int command_not_found(char **envp, shell_t *shell)
 {
     if (!shell || !envp)
         return 84;
-    my_putstr_without_return(shell->cmd);
+    my_putstr_without_return(shell->array[0]);
     my_putstr(": Command not found.");
     my_putchar('\n');
     exit(0);
