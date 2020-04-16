@@ -56,10 +56,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-tests_run:
-	make -C tests
-	./tests/unit_tests
-
 test:
 	make -C tests_shell/tests
 	./test_shell/tests/my_tests_sh
