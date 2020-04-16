@@ -54,8 +54,12 @@ int exec_binary(shell_t *shell, char **envp);
 int exec_function_system(shell_t *shell, char **envp, int i);
 char *check_path(char *path);
 int check_error_father(int wstatus);
+int check_getline(shell_t *shell, char **envp, int x, char *line);
+int call_exec_comma_function(char *line, shell_t *shell, char **envp);
+int check_line(char *line, shell_t *shell, int i);
 
 /*lib*/
+int my_strlen_comma(char const *str);
 int my_putchar(char c);
 int my_putstr(char const *str);
 char **my_str_to_world_array(char *str);
@@ -65,7 +69,7 @@ int my_strncmp(char const *s1, char const *s2, int n);
 int my_strcmp(char const *s1, char const *s2);
 char **my_str_to_world_array_colon(char *str);
 char *my_strdup(char const *src);
-int number_char(char *str);
+int number_char(char *str, int i);
 int lines(char *str);
 int number_char_colon(char *str, int i);
 int lines_colon(char *str);
