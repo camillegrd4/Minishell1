@@ -43,7 +43,7 @@ char **add_letter_colon(char **array, int number, char *str, int i)
         while (str[i] == ' ' || str[i] == '\t' || str[i] == ':')
             i++;
         array[a] = malloc(sizeof(char) * (lines_colon(&str[i]) + 1));
-        while (str[i] != '\0' && str[i] != ':' && str[i] != '\t' && 
+        while (str[i] != '\0' && str[i] != ':' && str[i] != '\t' &&
         str[i] != ' ' && str[i] != '\n') {
             array[a][j] = str[i];
             j += 1;
