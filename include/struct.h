@@ -20,13 +20,14 @@ typedef struct shell {
     int line;
     char *unset;
     int pos;
-    int find_line;
     struct comma_s *comma;
 }shell_t;
 
 typedef struct comma_s {
     char *first_arg;
     char *second_arg;
+    char *first_arg_pipe;
+    char *second_arg_pipe;
 }comma_t;
 
 #endif /* !STRUCT_H */

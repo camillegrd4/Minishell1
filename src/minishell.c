@@ -9,12 +9,15 @@
 
 int my_function(shell_t *shell, char **envp)
 {
-    if (!envp || !shell)
+    pid_t pid = 5;
+
+    if (!envp || !shell) {
         return 84;
+    }
     if (call_function_recode(envp, shell) == 1) {
         return 1;
     }
-    else if (exec_function(envp, shell) == 84) {
+    else if (exec_function(envp, shell, pid) == 84) {
         return 84;
     }
     return 0;
@@ -22,6 +25,8 @@ int my_function(shell_t *shell, char **envp)
 
 int check_getline(shell_t *shell, char **envp, int x, char *line)
 {
+    if (!shell || !envp || !line)
+        return 84;
     if (x != -1) {
         shell->cmd = line;
         shell->array = my_str_to_world_array(shell->cmd);
@@ -30,8 +35,19 @@ int check_getline(shell_t *shell, char **envp, int x, char *line)
         my_putstr("exit\n");
         exit(0);
     } else if (x != -1) {
-        if (my_function(shell, envp) == 84)
+        if (my_function(shell, envp) == 84) {
             return 84;
+        }
+    }
+    return 0;
+}
+
+int check_error_main(int x, char *line, shell_t *shell, char **envp)
+{
+    if (x == 1 || x == 84)
+        return x;
+    else if (x != 2) {
+        check_comma_function(line, shell, envp, x);
     }
     return 0;
 }
@@ -39,7 +55,7 @@ int check_getline(shell_t *shell, char **envp, int x, char *line)
 int principal_function(char **envp, shell_t *shell)
 {
     size_t n = 0;
-    char *line;
+    char *line = NULL;
     int x = 0;
     int i = 0;
     while (1) {
@@ -47,12 +63,15 @@ int principal_function(char **envp, shell_t *shell)
         if (isatty(STDIN_FILENO) == 1)
             my_putstr("$ > ");
         if (x = getline(&line, &n, stdin) == -1) {
+            free(shell);
             my_putstr("exit\n");
             exit(0);
         }
         if (x != -1) {
-            if (check_getline(shell, envp, x, line) == 84)
-                return 84;
+            x = check_pipe_function(envp, line, shell, i);
+            x = check_error_main(x, line, shell, envp);
+            if (x == 1 || x == 84)
+                return x;
         }
     }
     return 0;
@@ -60,12 +79,17 @@ int principal_function(char **envp, shell_t *shell)
 
 char minishel(char **argv, char **envp)
 {
-    shell_t *shell = init_struct_minishell();
+    shell_t *shell = NULL;
 
-    if (!argv || !envp || !shell)
+    if (!argv || !envp)
         return 84;
-    shell->save_env = create_list_env(envp, shell);
-    if (principal_function(envp, shell) == 84)
+    shell = init_struct_minishell(envp);
+    create_list_env(envp, shell);
+    if (!shell)
         return 84;
+    if (principal_function(envp, shell) == 84) {
+        free(shell);
+        return 84;
+    }
     return 0;
 }

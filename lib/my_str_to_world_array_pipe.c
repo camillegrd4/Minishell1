@@ -14,7 +14,7 @@ int number_char_colon(char *str, int i)
     if (!str)
         return 84;
     while (str[i] != '\0') {
-        if ((str[i] == ':' || str[i] == ' ' || str[i] == '\t')
+        if ((str[i] == ':' || str[i] == ' ' || str[i] == '\t' && str[i] != '|')
         && (str[i + 1] != ':' && str[i + 1] != ' ' && str[i + 1] != '\t'))
             number_char += 1;
         i += 1;
@@ -44,7 +44,7 @@ char **add_letter_colon(char **array, int number, char *str, int i)
             i++;
         array[a] = malloc(sizeof(char) * (lines_colon(&str[i]) + 1));
         while (str[i] != '\0' && str[i] != ':' && str[i] != '\t' &&
-        str[i] != ' ' && str[i] != '\n') {
+        str[i] != ' ' && str[i] != '\n' && str[i] != '|') {
             array[a][j] = str[i];
             j += 1;
             i += 1;
@@ -67,7 +67,7 @@ char **check_space_colon(char **array, int number, char **form)
     while (array[i]) {
         j = 0;
         x = 0;
-        form[a] = malloc(sizeof(char) * (my_strlen(array[i])) + 1);
+        form[a] = malloc(sizeof(char) * (my_strlen(array[i]) + 1));
         if (!form) return NULL;
         while (array[i][j]) {
             if (array[i][j] == ' ')
@@ -83,7 +83,7 @@ char **check_space_colon(char **array, int number, char **form)
     return form;
 }
 
-char **my_str_to_world_array_colon(char *str)
+char **my_str_to_world_array_pipe(char *str)
 {
     int number = 0;
     char **array = NULL;
@@ -91,13 +91,15 @@ char **my_str_to_world_array_colon(char *str)
     int i = 0;
     int a = 0;
 
+    if (!str)
+        return NULL;
     while (str[i] == ' ') {
         i++;
     }
     number = number_char_colon(str, i) + 1;
     array = malloc(sizeof(char *) * (number + 1));
     array = add_letter_colon(array, number, str, i);
-    form = malloc(sizeof(char *) * (number));
-    array = check_space_colon(array, number, form);
+    form = malloc(sizeof(char *) * (number + 1));
+    array = check_space_colon(array, (number), form);
     return array;
 }
